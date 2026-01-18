@@ -42,10 +42,10 @@
         .visit-counter { margin: 5px 0 15px 0; text-align: center; }
         .visit-counter img { height: 20px; vertical-align: middle; }
 
-        /* 🛍️ 인포크(쇼핑) 전용 버튼 (새로 추가됨!) */
+        /* 🛍️ 인포크(쇼핑) 전용 버튼 */
         .shop-btn-area { margin-bottom: 20px; text-align: center; }
         .shop-btn {
-            display: block; width: 100%; padding: 12px 0;
+            display: block; width: 100%; padding: 13px 0;
             background-color: #333; color: #fff; text-decoration: none;
             border-radius: 12px; font-weight: 700; font-size: 14px;
             transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
@@ -53,7 +53,7 @@
         .shop-btn:hover { background-color: #000; transform: translateY(-2px); }
         .shop-btn i { margin-right: 6px; }
 
-        /* SNS (아이콘만 깔끔하게) */
+        /* SNS */
         .sns-links { display: flex; justify-content: center; gap: 15px; margin-bottom: 25px; }
         .sns-btn { width: 40px; height: 40px; border-radius: 50%; background: #f5f5f5; color: #555; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 20px; transition: 0.2s; }
         .sns-btn:hover { background: var(--primary-color); color: #fff; transform: scale(1.1); }
@@ -64,15 +64,14 @@
         .search-input { width: 100%; padding: 12px 15px; font-size: 15px; border: 2px solid #eee; border-radius: 12px; background-color: #f9f9f9; outline: none; transition: 0.3s; }
         .search-input:focus { border-color: var(--primary-color); background-color: #fff; }
 
-        /* 섹션 헤더 */
+        /* 섹션 헤더 (아이콘 제거됨) */
         .section-header { 
             display: flex; align-items: center; margin: 10px 0 15px 0; 
             padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;
         }
         .section-title { font-size: 18px; font-weight: 800; color: #222; margin: 0; }
-        .section-icon { margin-right: 8px; font-size: 18px; }
-
-        /* 🖼️ 리스트 (3단, 항상 보임) */
+        
+        /* 🖼️ 리스트 (3단) */
         #link-list { 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
@@ -84,7 +83,6 @@
         .card-info { padding: 8px 4px; text-align: center; }
         .card-title { font-weight: 600; font-size: 12px; line-height: 1.3; color: #222; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
         
-        /* 로딩/통계 */
         #status { text-align: center; color: #aaa; margin-top: 50px; font-size: 13px; }
         .loading-spinner { width: 25px; height: 25px; border: 3px solid #eee; border-top-color: var(--primary-color); border-radius: 50%; margin: 0 auto 10px; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
@@ -110,7 +108,7 @@
 
         <div class="shop-btn-area">
             <a href="https://link.inpock.co.kr/yoriboi" target="_blank" class="shop-btn">
-                <i class="fas fa-shopping-cart"></i> 공구 & 추천템 보러가기
+                <i class="fas fa-shopping-cart"></i> 필수 양념 & 식재료 리스트
             </a>
         </div>
 
@@ -125,7 +123,6 @@
         </div>
         
         <div class="section-header">
-            <div class="section-icon">🍳</div>
             <h3 class="section-title">레시피</h3>
         </div>
 
@@ -160,7 +157,6 @@
                 statusDiv.innerHTML = "⚠️ 목록을 불러오지 못했어요.";
             });
 
-        // 검색 기능
         searchInput.addEventListener('input', function(e) {
             const keyword = e.target.value.toLowerCase();
             const filtered = allRecipes.filter(item => 
@@ -176,19 +172,18 @@
                 return;
             }
             items.forEach(item => {
-                // 🛠️ 이미지 찾기 로직 강화 (image, img, src 등 다 뒤짐)
                 let imgSrc = item.image || item.img || item.src || '';
-                
-                // 이미지가 없으면 기본 로고 표시
                 if (!imgSrc) {
+                    // 기본 로고
                     imgSrc = 'https://ui-avatars.com/api/?name=Yori&background=FF6B00&color=fff';
                 }
 
                 const title = item.title || '제목 없음';
                 
+                // 이미지가 깨지면(ER 대신) 요리보이 로고가 뜨게 설정했습니다.
                 const html = `
                     <a href="${item.link}" class="card" target="_blank">
-                        <img src="${imgSrc}" class="card-img" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=Error&background=ddd&color=333'">
+                        <img src="${imgSrc}" class="card-img" loading="lazy" onerror="this.src='https://ui-avatars.com/api/?name=YB&background=f0f0f0&color=888'">
                         <div class="card-info">
                             <div class="card-title">${title}</div>
                         </div>
