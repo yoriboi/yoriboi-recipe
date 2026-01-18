@@ -5,7 +5,7 @@ on:
   workflow_dispatch:      # 수동 실행 버튼
 
 permissions:
-  contents: write         # ⭐ 권한 부여 (필수!)
+  contents: write         # ⭐ 파일 저장 권한 (가장 중요!)
 
 jobs:
   build:
@@ -31,6 +31,6 @@ jobs:
       run: |
         git config --global user.name 'GitHub Actions'
         git config --global user.email 'actions@github.com'
-        git add links.json       # 👈 recipes.json 말고 links.json을 배달!
+        git add links.json
         git commit -m "Update links" || exit 0
         git push
