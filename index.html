@@ -25,52 +25,70 @@
     <style>
         :root { --primary-color: #FF6B00; --bg-color: #FAFAFA; }
         body { font-family: 'Pretendard', sans-serif; background-color: var(--bg-color); margin: 0; display: flex; justify-content: center; }
-        .container { width: 100%; max-width: 450px; background-color: #fff; min-height: 100vh; padding: 15px; box-sizing: border-box; box-shadow: 0 0 20px rgba(0,0,0,0.05); }
+        .container { 
+            width: 100%; max-width: 450px; background-color: #fff; 
+            min-height: 100vh; padding: 15px; box-sizing: border-box; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.05); 
+        }
         
         /* 프로필 */
-        .profile { text-align: center; margin: 20px 0 15px 0; }
+        .profile { text-align: center; margin: 20px 0 10px 0; }
         .profile-img { width: 80px; height: 80px; border-radius: 50%; border: 3px solid var(--primary-color); padding: 3px; background: #fff; object-fit: cover; }
         .profile h2 { margin: 10px 0 5px 0; font-size: 20px; color: #111; font-weight: 800; }
         .profile p { color: #888; font-size: 13px; margin: 0; font-weight: 500; }
         .profile .highlight { color: var(--primary-color); }
+
+        /* 📟 전광판 (방문자 수) - 프로필 하단으로 이동 */
+        .visit-counter { margin: 10px 0 20px 0; text-align: center; }
+        .visit-counter img { height: 20px; vertical-align: middle; }
         
         /* SNS */
         .sns-links { display: flex; justify-content: center; gap: 12px; margin-bottom: 25px; }
         .sns-btn { width: 38px; height: 38px; border-radius: 50%; background: #f5f5f5; color: #555; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 18px; transition: 0.2s; }
         .sns-btn:hover { background: var(--primary-color); color: #fff; transform: scale(1.1); }
         .sns-btn.tiktok { font-size: 17px; } 
+        /* 인포크/쇼핑 버튼 추가 (검은색) */
+        .sns-btn.shop { background-color: #333; color: #fff; }
+        .sns-btn.shop:hover { background-color: #000; }
 
         /* 검색창 */
-        .search-box { position: sticky; top: 0; background: #fff; padding: 0 0 15px 0; z-index: 10; }
+        .search-box { position: sticky; top: 0; background: #fff; padding: 0 0 10px 0; z-index: 10; }
         .search-input { width: 100%; padding: 12px 15px; font-size: 15px; border: 2px solid #eee; border-radius: 12px; background-color: #f9f9f9; outline: none; transition: 0.3s; }
         .search-input:focus { border-color: var(--primary-color); background-color: #fff; }
 
-        /* 🧱 섹션(구역) 디자인 (이게 중요!) */
+        /* 🔘 접기/펴기 버튼 디자인 */
+        .toggle-btn-area { text-align: right; margin-bottom: 10px; }
+        .toggle-btn {
+            background: none; border: none; color: #888; font-size: 12px; cursor: pointer;
+            padding: 5px 10px; border-radius: 5px; background-color: #f5f5f5;
+        }
+        .toggle-btn:hover { color: #333; }
+
+        /* 섹션 헤더 */
         .section-header { 
-            display: flex; align-items: center; margin: 30px 0 15px 0; 
+            display: flex; align-items: center; margin: 10px 0 15px 0; 
             padding-bottom: 10px; border-bottom: 2px solid #f0f0f0;
         }
         .section-title { font-size: 18px; font-weight: 800; color: #222; margin: 0; }
         .section-icon { margin-right: 8px; font-size: 18px; }
-        .section-more { margin-left: auto; font-size: 12px; color: #aaa; text-decoration: none; }
 
-        /* 리스트 & 카드 디자인 */
-        #link-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding-bottom: 10px; }
+        /* 🖼️ 리스트 & 카드 디자인 (3단으로 변경됨!) */
+        #link-list { 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); /* 4단 -> 3단 */
+            gap: 10px; padding-bottom: 50px; 
+        }
         .card { display: flex; flex-direction: column; background: #fff; border-radius: 10px; overflow: hidden; text-decoration: none; color: #333; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: all 0.2s ease; }
         .card:active { transform: scale(0.96); border-color: var(--primary-color); }
         .card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f0f0f0; }
         .card-info { padding: 8px 4px; text-align: center; }
-        .card-title { font-weight: 600; font-size: 11px; line-height: 1.3; color: #222; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
+        .card-title { font-weight: 600; font-size: 12px; line-height: 1.3; color: #222; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; word-break: keep-all; }
         
         /* 로딩/통계 */
         #status { text-align: center; color: #aaa; margin-top: 50px; font-size: 13px; }
         .loading-spinner { width: 25px; height: 25px; border: 3px solid #eee; border-top-color: var(--primary-color); border-radius: 50%; margin: 0 auto 10px; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
-        .no-result { grid-column: span 4; text-align: center; padding: 40px; color: #999; font-size: 13px; }
-        
-        .footer-stats { margin-top: 50px; padding-top: 20px; border-top: 1px solid #eee; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 10px; }
-        .stat-label { font-size: 11px; color: #aaa; font-weight: 600; letter-spacing: 1px; }
-        .hit-badge { height: 20px; }
+        .no-result { grid-column: span 3; text-align: center; padding: 40px; color: #999; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -84,14 +102,30 @@
             <p>🍳 간단하고 맛있는 요리 ✨</p>
         </div>
 
+        <div class="visit-counter">
+            <a href="https://github.com/yoriboi/yoriboi.github.io" target="_blank">
+                <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fyoriboi.github.io&count_bg=%23FF6B00&title_bg=%23333333&icon=codeforces.svg&icon_color=%23E7E7E7&title=VISIT&edge_flat=false"/>
+            </a>
+        </div>
+
         <div class="sns-links">
             <a href="https://instagram.com/yoriboi_recipe" target="_blank" class="sns-btn instagram"><i class="fab fa-instagram"></i></a>
             <a href="https://youtube.com/@요리보이" target="_blank" class="sns-btn youtube"><i class="fab fa-youtube"></i></a>
             <a href="https://www.tiktok.com/@yoriboi_recipe" target="_blank" class="sns-btn tiktok"><i class="fab fa-tiktok"></i></a>
+            <a href="https://link.inpock.co.kr/내주소넣기" target="_blank" class="sns-btn shop"><i class="fas fa-shopping-cart"></i></a>
         </div>
 
         <div class="search-box">
             <input type="text" id="search-input" class="search-input" placeholder="🔍 레시피 검색...">
+        </div>
+
+        <div class="toggle-btn-area">
+            <button id="toggle-list-btn" class="toggle-btn">레시피 목록 접기 🔼</button>
+        </div>
+        
+        <div class="section-header">
+            <div class="section-icon">🍳</div>
+            <h3 class="section-title">레시피</h3>
         </div>
 
         <div id="status">
@@ -99,26 +133,8 @@
             로딩 중...
         </div>
         
-        <div class="section-header">
-            <div class="section-icon">🍳</div>
-            <h3 class="section-title">레시피</h3>
-            </div>
-
         <div id="link-list"></div>
 
-
-        <div class="footer-stats">
-            <div>
-                <div class="stat-label">NOW ONLINE</div>
-                <script id="_wau38s">var _wau = _wau || []; _wau.push(["small", "yoriboikitchen", "38s"]);</script><script async src="//waust.at/s.js"></script>
-            </div>
-            <div>
-                <div class="stat-label" style="margin-bottom: 3px;">TOTAL VISIT</div>
-                <a href="https://github.com/yoriboi/yoriboi.github.io">
-                    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fyoriboi.github.io&count_bg=%23FF6B00&title_bg=%23555555&icon=codeforces.svg&icon_color=%23E7E7E7&title=HITS&edge_flat=false" class="hit-badge"/>
-                </a>
-            </div>
-        </div>
         <div style="height: 30px;"></div>
     </div>
 
@@ -127,6 +143,7 @@
         const statusDiv = document.getElementById('status');
         const listDiv = document.getElementById('link-list');
         const searchInput = document.getElementById('search-input');
+        const toggleBtn = document.getElementById('toggle-list-btn');
 
         fetch('./links.json?v=' + new Date().getTime())
             .then(res => res.json())
@@ -145,12 +162,27 @@
                 statusDiv.innerHTML = "⚠️ 목록을 불러오지 못했어요.";
             });
 
+        // 검색 기능
         searchInput.addEventListener('input', function(e) {
             const keyword = e.target.value.toLowerCase();
             const filtered = allRecipes.filter(item => 
                 item.title.toLowerCase().includes(keyword)
             );
+            // 검색 시 자동으로 목록 펼치기
+            listDiv.style.display = "grid";
+            toggleBtn.innerHTML = "레시피 목록 접기 🔼";
             renderList(filtered);
+        });
+
+        // 🔘 접기/펴기 기능 로직
+        toggleBtn.addEventListener('click', function() {
+            if (listDiv.style.display === "none") {
+                listDiv.style.display = "grid"; // 펼치기
+                toggleBtn.innerHTML = "레시피 목록 접기 🔼";
+            } else {
+                listDiv.style.display = "none"; // 접기
+                toggleBtn.innerHTML = "레시피 목록 펼치기 🔽";
+            }
         });
 
         function renderList(items) {
@@ -163,7 +195,6 @@
                 const img = item.image || 'https://ui-avatars.com/api/?name=Yori&background=FF6B00&color=fff';
                 const title = item.title || '제목 없음';
                 
-                // 기존 단순 카드 디자인 (태그 제거됨)
                 const html = `
                     <a href="${item.link}" class="card" target="_blank">
                         <img src="${img}" class="card-img" loading="lazy">
