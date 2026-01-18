@@ -25,7 +25,7 @@
             max-width: 450px; 
             background-color: #fff; 
             min-height: 100vh; 
-            padding: 15px; /* 여백 약간 줄임 */
+            padding: 15px; 
             box-sizing: border-box;
             box-shadow: 0 0 20px rgba(0,0,0,0.05); 
         }
@@ -58,20 +58,20 @@
         }
         .profile .highlight { color: var(--primary-color); }
 
-        /* 🖼️ 4단 갤러리 리스트 (핵심!) */
+        /* 🖼️ 4단 갤러리 리스트 */
         #link-list {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 👈 가로 4개씩! */
-            gap: 8px; /* 사이 간격 좁힘 */
+            grid-template-columns: repeat(4, 1fr); /* 가로 4개 */
+            gap: 8px; 
             padding-bottom: 50px;
         }
 
-        /* 카드 디자인 (미니 버전) */
+        /* 카드 디자인 */
         .card { 
             display: flex; 
             flex-direction: column; 
             background: #fff; 
-            border-radius: 10px; /* 둥글기 살짝 줄임 */
+            border-radius: 10px; 
             overflow: hidden; 
             text-decoration: none; 
             color: #333; 
@@ -81,4 +81,81 @@
         }
         .card:active { 
             transform: scale(0.96); 
-            border-color: var(--primary-color);
+            border-color: var(--primary-color); 
+        }
+
+        /* 이미지 (1:1 정사각형) */
+        .card-img { 
+            width: 100%; 
+            aspect-ratio: 1/1; 
+            object-fit: cover; 
+            background: #f0f0f0;
+        }
+
+        /* 텍스트 영역 */
+        .card-info {
+            padding: 8px 4px; 
+            text-align: center; 
+        }
+        .card-title { 
+            font-weight: 600; 
+            font-size: 11px; 
+            line-height: 1.3;
+            color: #222;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            word-break: keep-all;
+        }
+        
+        /* 로딩 메시지 */
+        #status { text-align: center; color: #aaa; margin-top: 50px; font-size: 13px; }
+        .loading-spinner {
+            width: 25px; height: 25px; border: 3px solid #eee; 
+            border-top-color: var(--primary-color); border-radius: 50%; 
+            margin: 0 auto 10px; animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <img src="https://github.com/yoriboi.png" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=YB&background=FF6B00&color=fff'">
+            <h2>요리보이 <span class="highlight">Kitchen</span></h2>
+            <p>한눈에 보는 레시피북 🍊</p>
+        </div>
+
+        <div id="status">
+            <div class="loading-spinner"></div>
+            로딩 중...
+        </div>
+        <div id="link-list"></div>
+    </div>
+
+    <script>
+        fetch('./links.json?v=' + new Date().getTime())
+            .then(res => res.json())
+            .then(data => {
+                const list = document.getElementById('link-list');
+                const status = document.getElementById('status');
+                
+                status.style.display = 'none'; 
+                list.innerHTML = ''; 
+
+                if (data.length === 0) {
+                    status.style.display = 'block';
+                    status.innerHTML = "저장된 레시피가 없어요 😭";
+                    return;
+                }
+
+                data.forEach(item => {
+                    const img = item.image || 'https://ui-avatars.com/api/?name=Yori&background=FF6B00&color=fff';
+                    const title = item.title || '제목 없음';
+                    
+                    const html = `
+                        <a href="${item.link}" class="card" target="_blank">
+                            <img src="${img}" class="card-img" loading="lazy">
+                            <div class="card-
