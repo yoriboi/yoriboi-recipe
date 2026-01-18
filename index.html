@@ -6,6 +6,7 @@
     j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
     })(window,document,'script','dataLayer','GTM-PJJ4WRGV');</script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -33,7 +34,7 @@
         .search-box { position: sticky; top: 0; background: #fff; padding: 0 0 15px 0; z-index: 10; }
         .search-input { width: 100%; padding: 12px 15px; font-size: 15px; border: 2px solid #eee; border-radius: 12px; background-color: #f9f9f9; outline: none; transition: 0.3s; }
         .search-input:focus { border-color: var(--primary-color); background-color: #fff; }
-        #link-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding-bottom: 50px; }
+        #link-list { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; padding-bottom: 30px; }
         .card { display: flex; flex-direction: column; background: #fff; border-radius: 10px; overflow: hidden; text-decoration: none; color: #333; border: 1px solid #eee; box-shadow: 0 2px 5px rgba(0,0,0,0.03); transition: all 0.2s ease; }
         .card:active { transform: scale(0.96); border-color: var(--primary-color); }
         .card-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: #f0f0f0; }
@@ -43,11 +44,26 @@
         .loading-spinner { width: 25px; height: 25px; border: 3px solid #eee; border-top-color: var(--primary-color); border-radius: 50%; margin: 0 auto 10px; animation: spin 1s linear infinite; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
         .no-result { grid-column: span 4; text-align: center; padding: 40px; color: #999; font-size: 13px; }
+
+        /* 📊 통계 섹션 디자인 (새로 추가됨) */
+        .footer-stats {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .stat-label { font-size: 11px; color: #aaa; font-weight: 600; letter-spacing: 1px; }
+        .hit-badge { height: 20px; }
     </style>
 </head>
 <body>
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-PJJ4WRGV"
     height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    
     <div class="container">
         <div class="profile">
             <img src="https://github.com/yoriboi.png" class="profile-img" onerror="this.src='https://ui-avatars.com/api/?name=YB&background=FF6B00&color=fff'">
@@ -70,7 +86,23 @@
             로딩 중...
         </div>
         <div id="link-list"></div>
-    </div>
+
+        <div class="footer-stats">
+            
+            <div>
+                <div class="stat-label">NOW ONLINE</div>
+                <script id="_wau38s">var _wau = _wau || []; _wau.push(["small", "yoriboikitchen", "38s"]);</script><script async src="//waust.at/s.js"></script>
+            </div>
+
+            <div>
+                <div class="stat-label" style="margin-bottom: 3px;">TOTAL VISIT</div>
+                <a href="https://github.com/yoriboi/yoriboi.github.io">
+                    <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fyoriboi.github.io&count_bg=%23FF6B00&title_bg=%23555555&icon=codeforces.svg&icon_color=%23E7E7E7&title=HITS&edge_flat=false" class="hit-badge"/>
+                </a>
+            </div>
+
+        </div>
+        <div style="height: 30px;"></div> </div>
 
     <script>
         let allRecipes = [];
