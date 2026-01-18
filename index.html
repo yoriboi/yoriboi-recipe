@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요리보이 레시피 본점</title>
+    <style>
+        /* 모바일 최적화 디자인 */
+        body { font-family: -apple-system, sans-serif; background-color: #fafafa; margin: 0; display: flex; justify-content: center; padding: 40px 20px; }
+        .container { width: 100%; max-width: 480px; text-align: center; }
+        .profile-img { width: 90px; height: 90px; border-radius: 50%; border: 2px solid #ff6b6b; padding: 3px; margin-bottom: 15px; }
+        h1 { font-size: 20px; font-weight: bold; margin-bottom: 8px; }
+        .bio { font-size: 14px; color: #666; margin-bottom: 30px; line-height: 1.5; }
+        
+        /* 레시피 카드 스타일 */
+        #recipe-list { display: flex; flex-direction: column; gap: 12px; }
+        .recipe-item { display: block; background: white; border: 1px solid #dbdbdb; padding: 18px; border-radius: 12px; text-decoration: none; color: #262626; font-weight: 600; transition: transform 0.2s; }
+        .recipe-item:hover { transform: scale(1.02); border-color: #ff6b6b; }
+        
+        .loading { color: #999; font-size: 14px; margin-top: 50px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="https://github.com/yoriboi.png" alt="요리보이" class="profile-img">
+        <h1>요리보이</h1>
+        <p class="bio">🍳 팬 하나로 끝내는 맛있고 간단한 요리<br>노션 실시간 연동 레시피 저장소 ✨</p>
 
+        <div id="recipe-list">
+            <p class="loading">레시피를 맛있게 불러오는 중...</p>
+        </div>
+    </div>
+
+    <script>
+        // 파이썬이 만들어줄 recipes.json 파일을 읽어오는 코드
+        async function fetchRecipes() {
+            const list = document.getElementById('recipe-list');
+            try {
+                const response = await fetch('recipes.json');
+                const recipes = await response.json();
+                
+                list.innerHTML = ''; // 로딩 메시지 삭제
+
+                if (recipes.length === 0) {
+                    list.innerHTML = '<p class="loading">등록된 레시피가 아직 없어요!</p>';
+                    return;
+                }
+
+                // 각 레시피를 버튼으로 변환
+                recipes.forEach(item => {
+                    const a = document.createElement('a');
+                    a.href = item.link;
+                    a.className = 'recipe-item';
+                    a.target = '_blank';
+                    a.innerText = `🔥 ${item.name}`;
+                    list.appendChild(a);
+                });
+            } catch (e) {
+                list.innerHTML = '<p class="loading">데이터를 불러오려면 [Actions]를 실행해주세요!</p>';
+            }
+        }
+        fetchRecipes();
+    </script>
+</body>
+</html>
