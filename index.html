@@ -31,14 +31,13 @@
         .profile p { color: #888; font-size: 14px; margin: 0; font-weight: 500; }
         .profile .highlight { color: var(--primary-color); }
 
-        /* 📊 방문자 수 (클릭X, 텍스트처럼) */
+        /* 📊 방문자 수 (한글로 변경됨!) */
         .visit-container {
             text-align: center; margin-bottom: 20px;
-            font-size: 13px; color: #999; font-weight: 500;
-            display: flex; align-items: center; justify-content: center; gap: 5px;
+            font-size: 13px; color: #888; font-weight: 600;
+            display: flex; align-items: center; justify-content: center; gap: 6px;
         }
-        /* 배지 스타일: 최대한 텍스트처럼 보이게 */
-        .visit-badge { height: 18px; opacity: 0.7; }
+        .visit-badge { height: 20px; vertical-align: middle; }
 
         /* 🛒 쇼핑 버튼 */
         .shop-btn-area { margin-bottom: 25px; text-align: center; }
@@ -86,8 +85,10 @@
         </div>
 
         <div class="visit-container">
-            Total Visits: 
-            <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fyoriboi.github.io&count_bg=%23FFFFFF&title_bg=%23FFFFFF&icon=&icon_color=%23E7E7E7&title=VISIT&edge_flat=false" class="visit-badge"/>
+            방문자 수
+            <a href="https://github.com/yoriboi/yoriboi.github.io" target="_blank" style="display:flex; align-items:center;">
+                <img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fyoriboi.github.io&count_bg=%23FF6B00&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=VISIT&edge_flat=false" class="visit-badge"/>
+            </a>
         </div>
 
         <div class="shop-btn-area">
